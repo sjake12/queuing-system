@@ -1,11 +1,21 @@
 import { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./components/Login.jsx";
+import Student from "./components/Student.jsx";
+import Admin from "./components/Admin.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Login />,
+  },
+  {
+    path: "/student",
+    element: <Student />,
+  },
+  {
+    path: "/admin",
+    element: <Admin />,
   },
 ]);
 

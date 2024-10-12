@@ -1,23 +1,32 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost/api/auth", {
-        username,
-        password,
-      });
+      const formData = new FormData();
+      formData.append("username", username);
+      formData.append("password", password);
 
-      if (response.data.status === 200) {
-        alert("Login successful");
+      const response = await axios.post("http://localhost/api/users", formData);
+
+      if (response.data.role === 1) {
+        navigate("/admin");
+      } else if (response.data.role === 2) {
+        navigate("/student");
+      } else if (response.data === false) {
+        setMessage("User not found");
       }
     } catch (e) {
       console.error(`There was an error! ${e}`);
+      setMessage(e.message);
     }
   };
 
@@ -44,6 +53,9 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          {message && (
+            <p className="text-red-500">Invalid username or password</p>
+          )}
           <button
             type="submit"
             className="bg-green-500 text-white py-2 rounded-lg hover:opacity-80 font-bold"
