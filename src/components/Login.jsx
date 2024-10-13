@@ -10,19 +10,21 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("");
+
     try {
       const formData = new FormData();
       formData.append("username", username);
       formData.append("password", password);
 
-      const response = await axios.post("http://localhost/api/users", formData);
+      const response = await axios.post("http://localhost/api/auth", formData);
 
-      if (response.data.role === 1) {
+      if (response.status === 200 && response.data.role === 1) {
         navigate("/admin");
-      } else if (response.data.role === 2) {
+      }
+
+      if (response.status === 200 && response.data.role === 2) {
         navigate("/student");
-      } else if (response.data === false) {
-        setMessage("User not found");
       }
     } catch (e) {
       console.error(`There was an error! ${e}`);
@@ -53,9 +55,7 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          {message && (
-            <p className="text-red-500">Invalid username or password</p>
-          )}
+          {message && <p className="text-red-500">User not found!</p>}
           <button
             type="submit"
             className="bg-green-500 text-white py-2 rounded-lg hover:opacity-80 font-bold"
