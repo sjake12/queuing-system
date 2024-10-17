@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Button } from "./ui/button";
+import { Button } from "../components/ui/button";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -85,7 +85,7 @@ export default function Login() {
             required
           />
           {message && <p className="text-red-500">User not found!</p>}
-          <Button>Log In</Button>
+          <Button type="submit">Log In</Button>
         </form>
       </div>
     </div>
