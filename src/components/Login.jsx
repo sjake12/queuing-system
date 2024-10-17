@@ -1,12 +1,29 @@
-import { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Button } from "./ui/button";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
+
+  const login = async (userData) => {
+    localStorage.setItem("user", JSON.stringify(userData));
+
+    try {
+      const getUser = await axios.get("http://localhost/api/user");
+
+      const { firstname, lastname } = getUser.data;
+      setUser(`${firstname} ${lastname}`);
+
+      console.log(user);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,14 +35,26 @@ export default function Login() {
       formData.append("password", password);
 
       const response = await axios.post("http://localhost/api/auth", formData);
+      const { permissions, role, token } = response.data;
 
-      if (response.status === 200 && response.data.role === 1) {
+      // Store the token in localStorage
+      localStorage.setItem("token", token);
+
+      // Set the default Authorization header for future requests
+      // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      //Login the user
+      login({ username, role, permissions });
+
+      if (role === 1) {
         navigate("/admin");
       }
 
-      if (response.status === 200 && response.data.role === 2) {
+      if (role === 2) {
         navigate("/student");
       }
+
+      console.log(response);
     } catch (e) {
       console.error(`There was an error! ${e}`);
       setMessage(e.message);
@@ -56,12 +85,7 @@ export default function Login() {
             required
           />
           {message && <p className="text-red-500">User not found!</p>}
-          <button
-            type="submit"
-            className="bg-green-500 text-white py-2 rounded-lg hover:opacity-80 font-bold"
-          >
-            Log In
-          </button>
+          <Button>Log In</Button>
         </form>
       </div>
     </div>
