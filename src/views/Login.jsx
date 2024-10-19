@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { z } from "zod";
@@ -42,6 +42,20 @@ export default function Login() {
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  useEffect(() => {
+    // Check if the user is already logged in
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+
+    if (token) {
+      if (role === "1") {
+        navigate("/admin");
+      } else if (role === "2") {
+        navigate("/student");
+      }
+    }
+  }, [navigate]);
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -64,6 +78,7 @@ export default function Login() {
         localStorage.setItem("token", token);
         localStorage.setItem("permision", permissions);
         localStorage.setItem("username", values.username);
+        localStorage.setItem("role", role);
 
         if (role === 1) {
           navigate("/admin");
