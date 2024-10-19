@@ -61,6 +61,20 @@ export default function Student() {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [course, setCourse] = useState("");
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 500);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Call once to set initial state
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const loadUser = async () => {
@@ -156,7 +170,7 @@ export default function Student() {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-                    side="right"
+                    side={isSmallScreen ? "top" : "right"}
                     align="end"
                     sideOffset={4}
                   >
