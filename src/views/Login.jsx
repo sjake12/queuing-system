@@ -26,6 +26,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { PersonIcon, LockClosedIcon } from "@radix-ui/react-icons";
 import { useToast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   username: z.string().min(5, {
@@ -37,6 +38,7 @@ const formSchema = z.object({
 });
 
 export default function Login() {
+  const [isloading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -52,6 +54,7 @@ export default function Login() {
     const formData = new FormData();
     formData.append("username", values.username);
     formData.append("password", values.password);
+    setIsLoading(true);
 
     try {
       const response = await axios.post("http://localhost/api/auth", formData);
@@ -72,17 +75,29 @@ export default function Login() {
       }
     } catch (err) {
       console.error(err);
-      toast({
-        title: "User Not Found!",
-        description: "Username or Password not found.",
-        variant: "destructive",
-      });
+      if (err.code === "ERR_NETWORK") {
+        toast({
+          title: err.message,
+          description: "Connection not found",
+          variant: "destructive",
+        });
+      }
+
+      if (err.code === 404) {
+        toast({
+          title: "User Not Found!",
+          description: "Username or Password not found.",
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="flex justify-center items-center w-screen h-screen">
-      <Card className="w-[30%] flex flex-col justify-center">
+      <Card className="w-full sm:w-96 flex flex-col justify-center">
         <CardHeader className="self-center text-center">
           <CardTitle>Login</CardTitle>
           <CardDescription>Login to process your clearance</CardDescription>
@@ -129,7 +144,16 @@ export default function Login() {
                   </FormItem>
                 )}
               />
-              <Button type="submit">Login</Button>
+              {isloading ? (
+                <Button type="submit" className="w-full" disabled>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please wait
+                </Button>
+              ) : (
+                <Button type="submit" className="w-full">
+                  Login
+                </Button>
+              )}
             </form>
           </Form>
         </CardContent>
