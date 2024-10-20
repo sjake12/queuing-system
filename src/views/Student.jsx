@@ -39,6 +39,8 @@ import {
   LogOut,
   CreditCard,
   Settings,
+  FileInput,
+  Calendar,
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -54,6 +56,7 @@ import {
   CollapsibleTrigger,
   CollapsibleContent,
 } from "@/components/ui/collapsible";
+import sksu from "@/assets/sksu1.png";
 
 export default function Student() {
   const navigate = useNavigate();
@@ -101,49 +104,109 @@ export default function Student() {
     navigate("/");
   };
 
+  const group = {
+    navMain: [
+      {
+        title: "Clearance",
+        url: "#",
+        icon: FileInput,
+        isActive: true,
+        items: [
+          {
+            title: "Queue",
+            url: "#",
+          },
+          {
+            title: "Requirements",
+            url: "#",
+          },
+          {
+            title: "Payments",
+            url: "#",
+          },
+        ],
+      },
+      {
+        title: "Events",
+        url: "#",
+        icon: Calendar,
+        items: [
+          {
+            title: "Upcoming",
+            url: "#",
+          },
+          {
+            title: "Listed",
+            url: "#",
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <>
       <SidebarProvider>
         <Sidebar collapsible="icon">
+          <SidebarHeader>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  size="lg"
+                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                >
+                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                    <Avatar>
+                      <AvatarImage src={sksu} />
+                      <AvatarFallback>SK</AvatarFallback>
+                    </Avatar>
+                  </div>
+                  <div className="grid flex-1 text-left text-sm leading-tight">
+                    <span className="truncate font-semibold">
+                      Sultan Kudarat <br /> State University
+                    </span>
+                  </div>
+                  <Badge>Student</Badge>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarHeader>
           <SidebarContent>
             <SidebarGroup>
-              <SidebarGroupLabel>Events</SidebarGroupLabel>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  <Collapsible asChild className="group/collapsible">
+              <SidebarGroupLabel>View</SidebarGroupLabel>
+              <SidebarMenu>
+                {group.navMain.map((item) => (
+                  <Collapsible
+                    key={item.title}
+                    asChild
+                    defaultOpen={item.isActive}
+                    className="group/collapsible"
+                  >
                     <SidebarMenuItem>
                       <CollapsibleTrigger asChild>
-                        <SidebarMenuButton>
-                          <span>Status</span>
+                        <SidebarMenuButton tooltip={item.title}>
+                          {item.icon && <item.icon />}
+                          <span>{item.title}</span>
                           <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                         </SidebarMenuButton>
                       </CollapsibleTrigger>
                       <CollapsibleContent>
                         <SidebarMenuSub>
-                          <SidebarMenuSubItem>
-                            <SidebarMenuSubButton asChild>
-                              <a href="#">
-                                <span>Upcoming</span>
-                              </a>
-                            </SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        </SidebarMenuSub>
-                      </CollapsibleContent>
-                      <CollapsibleContent>
-                        <SidebarMenuSub>
-                          <SidebarMenuSubItem>
-                            <SidebarMenuSubButton asChild>
-                              <a href="#">
-                                <span>Listed</span>
-                              </a>
-                            </SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
+                          {item.items.map((subItem) => (
+                            <SidebarMenuSubItem key={subItem.title}>
+                              <SidebarMenuSubButton asChild>
+                                <a href={subItem.url}>
+                                  <span>{subItem.title}</span>
+                                </a>
+                              </SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                          ))}
                         </SidebarMenuSub>
                       </CollapsibleContent>
                     </SidebarMenuItem>
                   </Collapsible>
-                </SidebarMenu>
-              </SidebarGroupContent>
+                ))}
+              </SidebarMenu>
             </SidebarGroup>
           </SidebarContent>
           <SidebarFooter>

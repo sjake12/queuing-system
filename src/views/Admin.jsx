@@ -6,33 +6,6 @@ import axios from "axios";
 export default function Admin() {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const validate = async () => {
-      const token = localStorage.getItem("token");
-
-      try {
-        const response = await axios.post(
-          "http://localhost/api/validate",
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (!response) {
-          navigate("/student");
-        }
-      } catch (e) {
-        console.error(e);
-        navigate("/student");
-      }
-    };
-
-    validate();
-  }, [navigate]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 

@@ -3,6 +3,7 @@ import Login from "./views/Login";
 import Student from "./views/Student";
 import Admin from "./views/Admin";
 import Home from "./views/Home";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -11,11 +12,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/student",
-    element: <Student />,
+    element: (
+      <ProtectedRoute allowedRoles={["1", "2"]}>
+        <Student />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/admin",
-    element: <Admin />,
+    element: (
+      <ProtectedRoute allowedRoles={["1"]}>
+        <Admin />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "/admin/home",
