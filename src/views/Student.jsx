@@ -57,6 +57,7 @@ import {
   CollapsibleContent,
 } from "@/components/ui/collapsible";
 import sksu from "@/assets/sksu1.png";
+import { DashboardIcon } from "@radix-ui/react-icons";
 
 export default function Student() {
   const navigate = useNavigate();
@@ -172,6 +173,14 @@ export default function Student() {
             </SidebarMenu>
           </SidebarHeader>
           <SidebarContent>
+            <SidebarMenu>
+              <SidebarMenuItem className="px-2">
+                <SidebarMenuButton tooltip="Dashboard">
+                  <DashboardIcon />
+                  <span>Dashboard</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
             <SidebarGroup>
               <SidebarGroupLabel>View</SidebarGroupLabel>
               <SidebarMenu>
