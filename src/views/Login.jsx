@@ -99,10 +99,10 @@ export default function Login() {
         });
       }
 
-      if (err.code === 404) {
+      if (err.status === 404) {
         toast({
           title: "User Not Found!",
-          description: "Username or Password not found.",
+          description: "Invalid Username or Password.",
           variant: "destructive",
         });
       }
