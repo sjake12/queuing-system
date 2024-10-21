@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -174,14 +174,16 @@ export default function Student() {
           </SidebarHeader>
           <SidebarContent>
             <SidebarMenu>
-              <SidebarMenuItem className="px-2">
+              <SidebarMenuItem className="px-2 mt-4">
                 <SidebarMenuButton tooltip="Dashboard">
                   <DashboardIcon />
-                  <span>Dashboard</span>
+                  <a href="#">
+                    <span>Dashboard</span>
+                  </a>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
-            <SidebarGroup>
+            <SidebarGroup className="mt-2">
               <SidebarGroupLabel>View</SidebarGroupLabel>
               <SidebarMenu>
                 {group.navMain.map((item) => (
@@ -296,8 +298,8 @@ export default function Student() {
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem className="hidden md:block">
-                    <BreadcrumbLink href="#">
-                      Building Your Application
+                    <BreadcrumbLink asChild>
+                      <Link to="#">Building Your Application</Link>
                     </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbSeparator className="hidden md:block" />
