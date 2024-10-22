@@ -18,7 +18,6 @@ import {
   SidebarGroupLabel,
   SidebarGroupContent,
   SidebarHeader,
-  SidebarInset,
   SidebarMenu,
   SidebarMenuAction,
   SidebarMenuButton,
@@ -28,7 +27,6 @@ import {
   SidebarMenuSubItem,
   SidebarProvider,
   SidebarRail,
-  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import {
   ChevronsUpDown,
@@ -37,15 +35,6 @@ import {
   CreditCard,
   Settings,
 } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
-import {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import {
   Collapsible,
   CollapsibleTrigger,
@@ -55,7 +44,7 @@ import { DashboardIcon } from "@radix-ui/react-icons";
 import { Link, useLocation } from "react-router-dom";
 import sksu from "@/assets/sksu1.png";
 import { useEffect, useState } from "react";
-import StudentQueue from "@/views/StudentQueue";
+import Inset from "./Inset";
 
 export default function SidebarComponent({
   role,
@@ -78,14 +67,6 @@ export default function SidebarComponent({
       setBreadLink("Dashboard");
     }
   }, [location]);
-
-  const defaultDashboard = (path) => {
-    if (path === "student" || path === "admin") {
-      return "dashboard";
-    }
-
-    return path;
-  };
 
   return (
     <SidebarProvider>
@@ -231,54 +212,7 @@ export default function SidebarComponent({
         </SidebarFooter>
         <SidebarRail />
       </Sidebar>
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                {pathArray.map((path, index) => {
-                  return (
-                    <React.Fragment key={index}>
-                      <BreadcrumbItem className="hidden md:block">
-                        <BreadcrumbLink asChild>
-                          {index === pathArray.length - 1 ? (
-                            <BreadcrumbPage className="capitalize">
-                              {defaultDashboard(path)}
-                            </BreadcrumbPage>
-                          ) : (
-                            <Link to="#" className="capitalize">
-                              {defaultDashboard(path)}
-                            </Link>
-                          )}
-                        </BreadcrumbLink>
-                      </BreadcrumbItem>
-                      {index < pathArray.length - 1 && (
-                        <BreadcrumbSeparator className="hidden md:block" />
-                      )}
-                    </React.Fragment>
-                  );
-                })}
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-        </header>
-        <div className="flex justify-center items-center flex-1 flex-col gap-4 p-4 pt-0">
-          {location.pathname === "/student/queue" ? (
-            <StudentQueue />
-          ) : (
-            <>
-              <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                <div className="aspect-video rounded-xl bg-muted/50" />
-                <div className="aspect-video rounded-xl bg-muted/50" />
-                <div className="aspect-video rounded-xl bg-muted/50" />
-              </div>
-              <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
-            </>
-          )}
-        </div>
-      </SidebarInset>
+      <Inset pathArray={pathArray} />
     </SidebarProvider>
   );
 }

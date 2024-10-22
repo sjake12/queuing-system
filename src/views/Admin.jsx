@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SidebarComponent from "@/components/SidebarComponent";
+import { FileInput, Calendar } from "lucide-react";
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -54,12 +55,12 @@ export default function Admin() {
       {
         title: "Clearance",
         url: "#",
-        icon: "FileInput",
+        icon: FileInput,
         isActive: true,
         items: [
           {
             title: "Queue",
-            url: "#",
+            url: "/admin/queue",
           },
           {
             title: "Requirements",
@@ -74,7 +75,7 @@ export default function Admin() {
       {
         title: "Events",
         url: "#",
-        icon: "Calendar",
+        icon: Calendar,
         items: [
           {
             title: "Upcoming",

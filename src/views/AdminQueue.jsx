@@ -31,7 +31,7 @@ export default function StudentQueue() {
           </Stepper>
         </Box>
       </ThemeProvider>
-      <h1>THis is student queue</h1>
+      <h1>This is admin queue</h1>
     </>
   );
 }

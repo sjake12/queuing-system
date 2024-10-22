@@ -3,6 +3,7 @@ import Login from "./views/Login";
 import Student from "./views/Student";
 import Admin from "./views/Admin";
 import StudentQueue from "./views/StudentQueue";
+import AdminQueue from "./views/AdminQueue";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
@@ -31,7 +32,12 @@ const router = createBrowserRouter([
         <Admin />
       </ProtectedRoute>
     ),
-    children: [],
+    children: [
+      {
+        path: "/admin/queue",
+        element: <AdminQueue />,
+      },
+    ],
   },
 ]);
 
