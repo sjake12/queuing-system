@@ -99,9 +99,9 @@ export default function SidebarComponent({
             <SidebarMenuItem className="px-2 mt-4">
               <SidebarMenuButton tooltip="Dashboard">
                 <DashboardIcon />
-                <a href={`/${role}`}>
+                <Link to={`/${role}`}>
                   <span>Dashboard</span>
-                </a>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
