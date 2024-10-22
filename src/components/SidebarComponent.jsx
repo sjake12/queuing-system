@@ -1,3 +1,4 @@
+import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -35,8 +36,6 @@ import {
   LogOut,
   CreditCard,
   Settings,
-  FileInput,
-  Calendar,
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -53,8 +52,10 @@ import {
   CollapsibleContent,
 } from "@/components/ui/collapsible";
 import { DashboardIcon } from "@radix-ui/react-icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import sksu from "@/assets/sksu1.png";
+import { useEffect, useState } from "react";
+import StudentQueue from "@/views/StudentQueue";
 
 export default function SidebarComponent({
   role,
@@ -65,6 +66,27 @@ export default function SidebarComponent({
   logOut,
   group,
 }) {
+  const location = useLocation();
+  const [breadLink, setBreadLink] = useState("");
+  const [pathArray, setPathArray] = useState([]);
+
+  useEffect(() => {
+    const pathSegment = location.pathname.split("/").filter(Boolean);
+    setPathArray(pathSegment);
+
+    if (location.pathname === "/admin" || location.pathname === "/student") {
+      setBreadLink("Dashboard");
+    }
+  }, [location]);
+
+  const defaultDashboard = (path) => {
+    if (path === "student" || path === "admin") {
+      return "dashboard";
+    }
+
+    return path;
+  };
+
   return (
     <SidebarProvider>
       <Sidebar collapsible="icon">
@@ -96,7 +118,7 @@ export default function SidebarComponent({
             <SidebarMenuItem className="px-2 mt-4">
               <SidebarMenuButton tooltip="Dashboard">
                 <DashboardIcon />
-                <a href="#">
+                <a href={`/${role}`}>
                   <span>Dashboard</span>
                 </a>
               </SidebarMenuButton>
@@ -125,9 +147,9 @@ export default function SidebarComponent({
                         {item.items.map((subItem) => (
                           <SidebarMenuSubItem key={subItem.title}>
                             <SidebarMenuSubButton asChild>
-                              <a href={subItem.url}>
+                              <Link to={subItem.url}>
                                 <span>{subItem.title}</span>
-                              </a>
+                              </Link>
                             </SidebarMenuSubButton>
                           </SidebarMenuSubItem>
                         ))}
@@ -216,26 +238,45 @@ export default function SidebarComponent({
             <Separator orientation="vertical" className="mr-2 h-4" />
             <Breadcrumb>
               <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink asChild>
-                    <Link to="#">Building Your Application</Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
+                {pathArray.map((path, index) => {
+                  return (
+                    <React.Fragment key={index}>
+                      <BreadcrumbItem className="hidden md:block">
+                        <BreadcrumbLink asChild>
+                          {index === pathArray.length - 1 ? (
+                            <BreadcrumbPage className="capitalize">
+                              {defaultDashboard(path)}
+                            </BreadcrumbPage>
+                          ) : (
+                            <Link to="#" className="capitalize">
+                              {defaultDashboard(path)}
+                            </Link>
+                          )}
+                        </BreadcrumbLink>
+                      </BreadcrumbItem>
+                      {index < pathArray.length - 1 && (
+                        <BreadcrumbSeparator className="hidden md:block" />
+                      )}
+                    </React.Fragment>
+                  );
+                })}
               </BreadcrumbList>
             </Breadcrumb>
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
-          </div>
-          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+        <div className="flex justify-center items-center flex-1 flex-col gap-4 p-4 pt-0">
+          {location.pathname === "/student/queue" ? (
+            <StudentQueue />
+          ) : (
+            <>
+              <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+                <div className="aspect-video rounded-xl bg-muted/50" />
+                <div className="aspect-video rounded-xl bg-muted/50" />
+                <div className="aspect-video rounded-xl bg-muted/50" />
+              </div>
+              <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+            </>
+          )}
         </div>
       </SidebarInset>
     </SidebarProvider>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import SidebarComponent from "@/components/SidebarComponent";
+import { FileInput, Calendar } from "lucide-react";
 
 export default function Student() {
   const navigate = useNavigate();
@@ -55,12 +56,12 @@ export default function Student() {
       {
         title: "Clearance",
         url: "#",
-        icon: "FileInput",
+        icon: FileInput,
         isActive: true,
         items: [
           {
             title: "Queue",
-            url: "#",
+            url: "/student/queue",
           },
           {
             title: "Requirements",
@@ -75,7 +76,7 @@ export default function Student() {
       {
         title: "Events",
         url: "#",
-        icon: "Calendar",
+        icon: Calendar,
         items: [
           {
             title: "Upcoming",

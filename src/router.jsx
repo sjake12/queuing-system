@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Login from "./views/Login";
 import Student from "./views/Student";
 import Admin from "./views/Admin";
-import Home from "./views/Home";
+import StudentQueue from "./views/StudentQueue";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
@@ -17,6 +17,12 @@ const router = createBrowserRouter([
         <Student />
       </ProtectedRoute>
     ),
+    children: [
+      {
+        path: "/student/queue",
+        element: <StudentQueue />,
+      },
+    ],
   },
   {
     path: "/admin",
@@ -25,12 +31,7 @@ const router = createBrowserRouter([
         <Admin />
       </ProtectedRoute>
     ),
-    children: [
-      {
-        path: "/admin/home",
-        element: <Home />,
-      },
-    ],
+    children: [],
   },
 ]);
 
