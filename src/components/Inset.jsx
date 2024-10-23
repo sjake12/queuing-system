@@ -102,9 +102,7 @@ export default function Inset({ pathArray }) {
           </Breadcrumb>
         </div>
       </header>
-      <div className="flex justify-center items-center flex-1 flex-col gap-4 p-4 pt-0">
-        {getRouteComponent(location.pathname)}
-      </div>
+      <div className="p-4 pt-0">{getRouteComponent(location.pathname)}</div>
     </SidebarInset>
   );
 }
