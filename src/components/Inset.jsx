@@ -10,13 +10,13 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Link } from "react-router-dom";
-import StudentQueue from "@/views/StudentQueue";
-import AdminQueue from "@/views/AdminQueue";
-import UserSettings from "@/views/UserSettings";
-import Requirements from "@/views/Requirements";
-import Payments from "@/views/Payments";
-import Upcoming from "@/views/Upcoming";
-import Listed from "@/views/Listed";
+import StudentQueue from "@/components/StudentQueue";
+import AdminQueue from "@/components/AdminQueue";
+import UserSettings from "@/components/UserSettings";
+import Requirements from "@/components/Requirements";
+import Payments from "@/components/Payments";
+import Upcoming from "@/components/Upcoming";
+import Listed from "@/components/Listed";
 
 export default function Inset({ pathArray }) {
   const defaultDashboard = (path) => {

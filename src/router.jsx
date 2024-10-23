@@ -2,14 +2,14 @@ import { createBrowserRouter } from "react-router-dom";
 import Login from "./views/Login";
 import Student from "./views/Student";
 import Admin from "./views/Admin";
-import StudentQueue from "./views/StudentQueue";
-import AdminQueue from "./views/AdminQueue";
-import UserSettings from "./views/UserSettings";
+import StudentQueue from "./components/StudentQueue";
+import AdminQueue from "./components/AdminQueue";
+import UserSettings from "./components/UserSettings";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Requirements from "./views/Requirements";
-import Payments from "./views/Payments";
-import Upcoming from "./views/Upcoming";
-import Listed from "./views/Listed";
+import Requirements from "./components/Requirements";
+import Payments from "./components/Payments";
+import Upcoming from "./components/Upcoming";
+import Listed from "./components/Listed";
 
 const router = createBrowserRouter([
   {

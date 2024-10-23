@@ -69,7 +69,7 @@ export default function SidebarComponent({
   }, [location]);
 
   return (
-    <SidebarProvider>
+    <SidebarProvider aria-describedby={null}>
       <Sidebar collapsible="icon">
         <SidebarHeader>
           <SidebarMenu>
@@ -97,12 +97,12 @@ export default function SidebarComponent({
         <SidebarContent>
           <SidebarMenu>
             <SidebarMenuItem className="px-2 mt-4">
-              <Link to={`/${role}`}>
-                <SidebarMenuButton tooltip="Dashboard">
-                  <DashboardIcon />
+              <SidebarMenuButton tooltip="Dashboard">
+                <DashboardIcon />
+                <Link to={`/${role}`}>
                   <span>Dashboard</span>
-                </SidebarMenuButton>
-              </Link>
+                </Link>
+              </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
           <SidebarGroup className="mt-2">
@@ -191,12 +191,10 @@ export default function SidebarComponent({
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
-                    <Link to="/student/settings">
-                      <DropdownMenuItem>
-                        <Settings />
-                        Settings
-                      </DropdownMenuItem>
-                    </Link>
+                    <DropdownMenuItem>
+                      <Settings />
+                      <Link to="/student/settings">Settings</Link>
+                    </DropdownMenuItem>
                     <DropdownMenuItem>
                       <CreditCard />
                       Billing

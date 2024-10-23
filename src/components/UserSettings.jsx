@@ -11,7 +11,7 @@ export default function UserSettings() {
         <CardTitle>Profile</CardTitle>
       </CardHeader>
       <Separator />
-      <CardContent className="flex flex-col gap-4 mt-6 [&>*]:w-2/4">
+      <CardContent className="flex flex-col gap-4 mt-6 md:[&>*]:w-2/4">
         <div className="flex flex-col gap-2">
           <Label htmlFor="avatar">Avatar</Label>
           <Input id="avatar" type="file" />
