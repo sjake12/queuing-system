@@ -97,12 +97,12 @@ export default function SidebarComponent({
         <SidebarContent>
           <SidebarMenu>
             <SidebarMenuItem className="px-2 mt-4">
-              <SidebarMenuButton tooltip="Dashboard">
-                <DashboardIcon />
-                <Link to={`/${role}`}>
+              <Link to={`/${role}`}>
+                <SidebarMenuButton tooltip="Dashboard">
+                  <DashboardIcon />
                   <span>Dashboard</span>
-                </Link>
-              </SidebarMenuButton>
+                </SidebarMenuButton>
+              </Link>
             </SidebarMenuItem>
           </SidebarMenu>
           <SidebarGroup className="mt-2">
@@ -191,10 +191,12 @@ export default function SidebarComponent({
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                      <Settings />
-                      <Link to="/student/settings">Settings</Link>
-                    </DropdownMenuItem>
+                    <Link to="/student/settings">
+                      <DropdownMenuItem>
+                        <Settings />
+                        Settings
+                      </DropdownMenuItem>
+                    </Link>
                     <DropdownMenuItem>
                       <CreditCard />
                       Billing

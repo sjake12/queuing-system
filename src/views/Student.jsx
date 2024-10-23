@@ -65,11 +65,11 @@ export default function Student() {
           },
           {
             title: "Requirements",
-            url: "#",
+            url: "/student/requirements",
           },
           {
             title: "Payments",
-            url: "#",
+            url: "/student/payments",
           },
         ],
       },
@@ -80,11 +80,11 @@ export default function Student() {
         items: [
           {
             title: "Upcoming",
-            url: "#",
+            url: "/student/upcoming",
           },
           {
             title: "Listed",
-            url: "#",
+            url: "/student/listed",
           },
         ],
       },
