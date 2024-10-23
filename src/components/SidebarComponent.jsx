@@ -41,7 +41,7 @@ import {
   CollapsibleContent,
 } from "@/components/ui/collapsible";
 import { DashboardIcon } from "@radix-ui/react-icons";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import sksu from "@/assets/sksu1.png";
 import { useEffect, useState } from "react";
 import Inset from "./Inset";
@@ -193,7 +193,7 @@ export default function SidebarComponent({
                   <DropdownMenuGroup>
                     <DropdownMenuItem>
                       <Settings />
-                      Settings
+                      <Link to="/student/settings">Settings</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem>
                       <CreditCard />

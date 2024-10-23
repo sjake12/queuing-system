@@ -4,6 +4,7 @@ import Student from "./views/Student";
 import Admin from "./views/Admin";
 import StudentQueue from "./views/StudentQueue";
 import AdminQueue from "./views/AdminQueue";
+import UserSettings from "./views/UserSettings";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
         path: "/student/queue",
         element: <StudentQueue />,
       },
+      {
+        path: "/student/settings",
+        element: <UserSettings />,
+      },
     ],
   },
   {
@@ -36,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/queue",
         element: <AdminQueue />,
+      },
+      {
+        path: "/admin/settings",
+        element: <UserSettings />,
       },
     ],
   },

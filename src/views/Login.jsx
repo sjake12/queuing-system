@@ -27,7 +27,7 @@ import { Label } from "@radix-ui/react-label";
 import { PersonIcon, LockClosedIcon } from "@radix-ui/react-icons";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
-import api from "@/auth";
+import api from "@/lib/auth";
 
 const formSchema = z.object({
   username: z.string().min(5, {

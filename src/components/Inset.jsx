@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import StudentQueue from "@/views/StudentQueue";
 import AdminQueue from "@/views/AdminQueue";
+import UserSettings from "@/views/UserSettings";
 
 export default function Inset({ pathArray }) {
   const defaultDashboard = (path) => {
@@ -39,6 +40,8 @@ export default function Inset({ pathArray }) {
         return <StudentQueue />;
       case "/admin/queue":
         return <AdminQueue />;
+      case "/student/settings" || "/admin/settings":
+        return <UserSettings />;
       default:
         return (
           <>

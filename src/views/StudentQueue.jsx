@@ -2,20 +2,10 @@ import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import { createTheme } from "@mui/material";
+import { theme } from "@/lib/muiTheme";
 import { ThemeProvider } from "@emotion/react";
 
 const steps = ["PSITS", "Library", "CCSO", "SBO", "Program Chairman", "Dean"];
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#16a249",
-    },
-    secondary: {
-      main: "#fff",
-    },
-  },
-});
 
 export default function StudentQueue() {
   return (
