@@ -11,6 +11,7 @@ export default function Student() {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [course, setCourse] = useState("");
+  const [avatar, setAvatar] = useState("");
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
@@ -36,6 +37,7 @@ export default function Student() {
         setFirstname(response.data[0].firstname);
         setLastname(response.data[0].lastname);
         setCourse(response.data[0].course);
+        setAvatar(response.data[0].avatar);
       } catch (error) {
         console.error(error);
       }
@@ -98,6 +100,7 @@ export default function Student() {
         firstname={firstname}
         lastname={lastname}
         course={course}
+        avatar={avatar}
         isSmallScreen={isSmallScreen}
         logOut={logOut}
         group={group}

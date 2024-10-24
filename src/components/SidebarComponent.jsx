@@ -51,25 +51,21 @@ export default function SidebarComponent({
   firstname,
   lastname,
   course,
+  avatar,
   isSmallScreen,
   logOut,
   group,
 }) {
   const location = useLocation();
-  const [breadLink, setBreadLink] = useState("");
   const [pathArray, setPathArray] = useState([]);
 
   useEffect(() => {
     const pathSegment = location.pathname.split("/").filter(Boolean);
     setPathArray(pathSegment);
-
-    if (location.pathname === "/admin" || location.pathname === "/student") {
-      setBreadLink("Dashboard");
-    }
   }, [location]);
 
   return (
-    <SidebarProvider aria-describedby={null}>
+    <SidebarProvider aria-describedby={undefined}>
       <Sidebar collapsible="icon">
         <SidebarHeader>
           <SidebarMenu>
@@ -97,12 +93,12 @@ export default function SidebarComponent({
         <SidebarContent>
           <SidebarMenu>
             <SidebarMenuItem className="px-2 mt-4">
-              <SidebarMenuButton tooltip="Dashboard">
-                <DashboardIcon />
-                <Link to={`/${role}`}>
+              <Link to={`/${role}`}>
+                <SidebarMenuButton tooltip="Dashboard">
+                  <DashboardIcon />
                   <span>Dashboard</span>
-                </Link>
-              </SidebarMenuButton>
+                </SidebarMenuButton>
+              </Link>
             </SidebarMenuItem>
           </SidebarMenu>
           <SidebarGroup className="mt-2">
@@ -111,12 +107,13 @@ export default function SidebarComponent({
               {group.navMain.map((item) => (
                 <Collapsible
                   key={item.title}
+                  aria-describedby={group.navMain.title}
                   asChild
                   defaultOpen={item.isActive}
                   className="group/collapsible"
                 >
                   <SidebarMenuItem>
-                    <CollapsibleTrigger asChild>
+                    <CollapsibleTrigger aria-describedby={item.title} asChild>
                       <SidebarMenuButton tooltip={item.title}>
                         {item.icon && <item.icon />}
                         <span>{item.title}</span>
@@ -146,13 +143,13 @@ export default function SidebarComponent({
           <SidebarMenu>
             <SidebarMenuItem>
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+                <DropdownMenuTrigger aria-describedby="dropdown" asChild>
                   <SidebarMenuButton
                     size="lg"
                     className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                   >
                     <Avatar>
-                      <AvatarImage src="https://github.com/shadcn.png" />
+                      <AvatarImage src={avatar} />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                     <div className="grid flex-1 text-left text-sm leading-tight">
@@ -173,10 +170,7 @@ export default function SidebarComponent({
                   <DropdownMenuLabel className="p-0 font-normal">
                     <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                       <Avatar className="h-8 w-8 rounded-lg">
-                        <AvatarImage
-                          src="https://github.com/shadcn.png"
-                          alt="avatar"
-                        />
+                        <AvatarImage src={avatar} alt="avatar" />
                         <AvatarFallback className="rounded-lg">
                           CN
                         </AvatarFallback>
@@ -191,10 +185,12 @@ export default function SidebarComponent({
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                      <Settings />
-                      <Link to="/student/settings">Settings</Link>
-                    </DropdownMenuItem>
+                    <Link to="/student/settings">
+                      <DropdownMenuItem>
+                        <Settings />
+                        Settings
+                      </DropdownMenuItem>
+                    </Link>
                     <DropdownMenuItem>
                       <CreditCard />
                       Billing

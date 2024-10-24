@@ -49,9 +49,9 @@ export default function Login() {
     const role = localStorage.getItem("role");
 
     if (token) {
-      if (role === "1") {
+      if (role === "admin") {
         navigate("/admin");
-      } else if (role === "2") {
+      } else if (role === "student") {
         navigate("/student");
       }
     }
@@ -81,11 +81,11 @@ export default function Login() {
         localStorage.setItem("username", values.username);
         localStorage.setItem("role", role);
 
-        if (role === 1) {
+        if (role === "admin") {
           navigate("/admin");
         }
 
-        if (role === 2) {
+        if (role === "student") {
           navigate("/student");
         }
       }
